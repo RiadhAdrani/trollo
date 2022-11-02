@@ -1,23 +1,16 @@
-import { CenteredColumn } from "@riadh-adrani/recursive-web/html";
+import { Column } from "@riadh-adrani/recursive-web/html";
 import { setStyle, renderRoute } from "..";
+import NavBarView from "./components/NavBar/NavBar.view";
 
 const App = () => {
     setStyle({
         selectors: {
             "body,html": { margin: "0", fontFamily: "system-ui", fontSize: "large" },
-            button: { fontSize: "x-large" },
         },
     });
 
-    return CenteredColumn({
-        style: {
-            inline: {
-                padding: ["20px", "10px"],
-                height: "100vh",
-                boxSizing: "border-box",
-            },
-        },
-        children: [renderRoute()],
+    return Column({
+        children: [NavBarView(), renderRoute()],
     });
 };
 export default App;

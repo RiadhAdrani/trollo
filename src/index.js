@@ -13,7 +13,7 @@ const webApp = new RecursiveWebApp({
     root: document.body,
     app,
     base: "",
-    scopedStyle: false,
+    scopedStyle: true,
     scrollCorrection: false,
     route: route,
 });
