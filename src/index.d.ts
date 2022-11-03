@@ -61,7 +61,7 @@ export function getCache<T = any>(key: string): StateArray<T>;
  * Retrieve an existing element from the `reference` store, or the default value.
  * Use the `hooks.onRef` hook and return a string from the function to initialize a new reference.
  */
-export function getRef<T = HTMLElement>(key: string, defaultValue: T): T;
+export function getRef(key: string, defaultValue: Element): Element;
 /**
  * Create and save a stateful object in the `state` store within the global `StateStore`.
  * Objects created by this method are deleted when they are not used or called in a rendering iteration
@@ -76,7 +76,7 @@ export function getRef<T = HTMLElement>(key: string, defaultValue: T): T;
 export function setState<T>(
     key: string,
     value: T,
-    onInit?: () => Function,
+    onInit?: () => Function | void,
     onRemoved?: () => void
 ): StateArray<T>;
 /**

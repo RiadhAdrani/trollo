@@ -16,6 +16,7 @@ export const Title = (props: TitleProps) => {
                 color: props.color || "inherit",
                 margin: "0px",
                 padding: ["5px", "0"],
+                fontWeight: "600",
             },
         },
     });

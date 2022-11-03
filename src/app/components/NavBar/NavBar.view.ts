@@ -1,5 +1,5 @@
 import { CenteredRow, Row, Spacer } from "@riadh-adrani/recursive-web/html";
-import { blue } from "../../style";
+import { blue, navBarHeight } from "../../style";
 import { StandardButton } from "../Button";
 import { TitleSmall } from "../Title";
 
@@ -12,13 +12,17 @@ export default () => {
                 backgroundColor: blue,
                 color: "white",
                 justifyContent: "space-between",
+                position: "fixed",
+                top: "0px",
+                width: "100vw",
+                height: navBarHeight,
             },
         },
         children: [
             CenteredRow({
                 children: [
                     TitleSmall("Trollo"),
-                    Spacer({ width: "10px" }),
+                    Spacer({ width: "20px" }),
                     StandardButton({ text: "Create", flat: true }),
                 ],
             }),
