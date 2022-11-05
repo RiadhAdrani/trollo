@@ -1,4 +1,4 @@
-import { CenteredRow, Row, Spacer } from "@riadh-adrani/recursive-web/html";
+import { CenteredRow, Link, Row, Spacer } from "@riadh-adrani/recursive-web/html";
 import { blue, navBarHeight } from "../../style";
 import { StandardButton } from "../Button";
 import { TitleSmall } from "../Title";
@@ -21,7 +21,12 @@ export default () => {
         children: [
             CenteredRow({
                 children: [
-                    TitleSmall("Trollo"),
+                    Link({
+                        className: ["no-deco"],
+                        href: "/",
+                        children: TitleSmall("Trollo", "white"),
+                    }),
+
                     Spacer({ width: "20px" }),
                     StandardButton({ text: "Create", flat: true }),
                 ],

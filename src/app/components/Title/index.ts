@@ -23,13 +23,17 @@ export const Title = (props: TitleProps) => {
 };
 
 export const TitleBig = (title: string, color?: string) => {
-    return Title({ title, size: "2em", color });
+    return Title({ title, size: "1.75em", color });
 };
 
 export const TitleSmall = (title: string, color?: string) => {
-    return Title({ title, size: "1.5em", color });
+    return Title({ title, size: "1.35em", color });
 };
 
 export const SubTitle = (title: string, color?: string) => {
-    return Title({ title, size: "1.25em", color });
+    return Title({ title, size: "1.15em", color });
+};
+
+export const SectionTitle = (title: string, color?: string) => {
+    return Title({ title, size: "1.05em", color });
 };

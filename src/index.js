@@ -16,6 +16,12 @@ const webApp = new RecursiveWebApp({
     scopedStyle: true,
     scrollCorrection: false,
     route: route,
+    onAppInit: () => {
+        importFile("script", {
+            src: "https://kit.fontawesome.com/634c1954cc.js",
+            crossOrigin: "anonymous",
+        });
+    },
 });
 
 export { importFile, mergeComponentStyles };

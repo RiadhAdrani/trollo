@@ -2,19 +2,12 @@ import { Column } from "@riadh-adrani/recursive-web/html";
 import { setStyle, renderRoute } from "..";
 import NavBarView from "./components/NavBar/NavBar.view";
 import useApp from "./hooks/useApp";
-import { navBarHeight } from "./style";
+import { navBarHeight, useStyle } from "./style";
 
 const App = () => {
-    const {} = useApp();
+    useStyle();
 
-    setStyle({
-        selectors: {
-            "body,html": { margin: "0", fontFamily: "system-ui", fontSize: "large" },
-            "*": {
-                boxSizing: "border-box",
-            },
-        },
-    });
+    const {} = useApp();
 
     return Column({
         id: "app-root",

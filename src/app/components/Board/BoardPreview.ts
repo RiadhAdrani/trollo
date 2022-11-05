@@ -5,6 +5,8 @@ import { SubTitle } from "../Title";
 
 export default (board: Board) => {
     return Link({
+        className: ["board-bg", "no-deco"],
+        href: `/board/${board.id}`,
         style: {
             className: "board-preview",
             normal: {
@@ -13,25 +15,18 @@ export default (board: Board) => {
                 height: "100px",
                 backgroundColor: board.color,
                 backgroundImage: `url('${board.img}')`,
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
                 borderRadius: radius,
                 cursor: "pointer",
             },
         },
         children: Column({
+            className: ["board-paper", "board-paper-effect"],
             style: {
-                className: "board-paper",
                 normal: {
-                    backgroundColor: "#00000077",
                     flex: "1",
                     padding: ["10px", "20px"],
                     borderRadius: "inherit",
                     transitionDuration,
-                },
-                hover: {
-                    backgroundColor: "#000000aa",
                 },
             },
             children: [SubTitle(board.title, "white")],

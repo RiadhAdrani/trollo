@@ -1,6 +1,6 @@
 export interface ObjOptions {
-    id: string;
-    cDate: number;
+    id?: string;
+    cDate?: number;
 }
 
 export default class Obj {
@@ -8,7 +8,7 @@ export default class Obj {
     public id: string;
 
     constructor(options: ObjOptions) {
-        this.cDate = options.cDate;
-        this.id = options.id;
+        this.cDate = options.cDate ?? Date.now();
+        this.id = options.id ?? (Date.now() * Math.random()).toString();
     }
 }
