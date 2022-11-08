@@ -4,9 +4,9 @@ import Obj, { ObjOptions } from "./Obj";
 
 export interface CardOptions extends ObjOptions {
     title: string;
-    description: string;
-    labels: Array<Label>;
-    checkItems: Array<CheckItem>;
+    description?: string;
+    labels?: Array<Label>;
+    checkItems?: Array<CheckItem>;
 }
 
 export default class Card extends Obj {
@@ -19,8 +19,8 @@ export default class Card extends Obj {
         super(options);
 
         this.title = options.title;
-        this.description = options.description;
-        this.labels = options.labels;
-        this.checkItems = options.checkItems;
+        this.description = options.description ?? "";
+        this.labels = options.labels ?? [];
+        this.checkItems = options.checkItems ?? [];
     }
 }

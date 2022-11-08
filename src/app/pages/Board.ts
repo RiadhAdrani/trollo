@@ -7,9 +7,7 @@ import Board from "../models/Board";
 import { navBarHeight } from "../style";
 
 export default () => {
-    const { id } = getParams();
-
-    const { isLoading, isNotFound, board: _board } = useBoard(id);
+    const { isLoading, isNotFound, board: _board } = useBoard();
 
     if (isLoading) {
         return CenteredColumn({ children: SubTitle("Loading...") });

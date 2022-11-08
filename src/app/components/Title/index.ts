@@ -12,8 +12,8 @@ export const Title = (props: TitleProps) => {
         style: {
             className: "title",
             normal: {
-                fontSize: props.size || "1.75em",
-                color: props.color || "inherit",
+                fontSize: props.size ?? "1.75em",
+                color: props.color ?? "inherit",
                 margin: "0px",
                 padding: ["5px", "0"],
                 fontWeight: "600",

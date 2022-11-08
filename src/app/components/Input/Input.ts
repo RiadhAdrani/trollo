@@ -7,6 +7,7 @@ interface FlatInputProps {
     placeholder: string;
     onInput?: (e: WebEvent<InputEvent, HTMLInputElement>) => void;
     onChange?: (e: WebEvent<InputEvent, HTMLInputElement>) => void;
+    onKeyUp?: (e: WebEvent<KeyboardEvent, HTMLInputElement>) => void;
     size?: string;
 }
 

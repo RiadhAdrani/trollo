@@ -1,4 +1,4 @@
-import { B, Column, Link } from "@riadh-adrani/recursive-web/html";
+import { Column, Link } from "@riadh-adrani/recursive-web/html";
 import Board from "../../models/Board";
 import { radius, transitionDuration } from "../../style";
 import { SubTitle } from "../Title";

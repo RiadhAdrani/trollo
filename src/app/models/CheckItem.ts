@@ -2,8 +2,8 @@ import Obj, { ObjOptions } from "./Obj";
 
 export interface CheckItemOptions extends ObjOptions {
     text: string;
-    dueDate: number;
-    doneDate: number;
+    dueDate?: number;
+    doneDate?: number;
 }
 
 export default class CheckItem extends Obj {
@@ -14,8 +14,12 @@ export default class CheckItem extends Obj {
     constructor(options: CheckItemOptions) {
         super(options);
 
-        this.dueDate = options.dueDate;
-        this.doneDate = options.doneDate;
+        this.dueDate = options.dueDate ?? -1;
+        this.doneDate = options.doneDate ?? -1;
         this.text = options.text;
+    }
+
+    get isDone(): boolean {
+        return this.doneDate > -1;
     }
 }

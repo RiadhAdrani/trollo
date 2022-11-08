@@ -1,31 +1,32 @@
 import {
     CenteredColumn,
     CenteredRow,
-    CheckBox,
     Column,
-    Label,
     Row,
-    S,
     Spacer,
     Span,
 } from "@riadh-adrani/recursive-web/html";
 import { BaseElement } from "@riadh-adrani/recursive-web/lib";
 import { getParams, goTo } from "../..";
 import Icon from "../components/Icon/Icon";
-import { FlatInput } from "../components/Input/Input";
-import { FlatTextArea } from "../components/Input/TextArea";
 import { SubTitle } from "../components/Title";
 import Expanded from "../components/Utility/Expanded";
 import Padding from "../components/Utility/Padding";
 import useBoard from "../hooks/useBoard";
 import Card from "../models/Card";
 import List from "../models/List";
-import { blue, darkPaper, light, lightAccent, radius } from "../style";
+import { darkPaper, light, lightAccent, radius } from "../style";
+import CardDialogTitle from "../components/Card/CardDialog.title";
+import CardDialogDescription from "../components/Card/CardDialog.description";
+import CardDialogCheckItem from "../components/Card/CardDialog.checkItem";
+import CardDialogAddCheckItem from "../components/Card/CardDialog.addCheckItem";
+import CardDialogLabel from "../components/Card/CardDialog.label";
+import CardDialogAddLabel from "../components/Card/CardDialog.addLabel";
 
 export default () => {
     const { id, card: cardId, list: listId } = getParams();
 
-    const { getCard, getList } = useBoard(id);
+    const { getCard, getList } = useBoard();
 
     const card = getCard(listId, cardId) as Card;
     const list = getList(listId) as List;
@@ -53,6 +54,11 @@ export default () => {
     };
 
     return CenteredColumn({
+        onKeyUpGlobal: (e) => {
+            if (e.code === "Escape") {
+                goTo(`/board/${id}`);
+            }
+        },
         style: {
             normal: {
                 position: "absolute",
@@ -79,9 +85,7 @@ export default () => {
                 SectionContainer("fa-heading", [
                     Row({
                         children: [
-                            Expanded(
-                                FlatInput({ value: card.title, placeholder: "Enter card title" })
-                            ),
+                            Expanded(CardDialogTitle()),
                             Spacer({ width: "8px" }),
                             Row({
                                 style: { normal: { alignSelf: "center", cursor: "pointer" } },
@@ -102,35 +106,12 @@ export default () => {
                             Span({ children: ["In list ", list.title] }),
                             Spacer({ height: "12px" }),
                             Row({
-                                children: [
-                                    ...card.labels.map((label) => {
-                                        return CenteredRow({
-                                            children: label.text,
-                                            style: {
-                                                normal: {
-                                                    backgroundColor: label.color,
-                                                    padding: ["4px", "8px"],
-                                                    borderRadius: radius,
-                                                    marginRight: "4px",
-                                                    cursor: "pointer",
-                                                },
-                                            },
-                                        });
-                                    }),
-                                    CenteredRow({
-                                        children: [Icon("fa-add"), "Add"],
-                                        style: {
-                                            normal: {
-                                                backgroundColor: light,
-                                                padding: ["4px", "8px"],
-                                                borderRadius: radius,
-                                                marginRight: "4px",
-                                                cursor: "pointer",
-                                            },
-                                        },
-                                    }),
-                                ],
+                                children: card.labels.map((label) =>
+                                    CardDialogLabel(listId, cardId, label)
+                                ),
                             }),
+                            Spacer({ height: "12px" }),
+                            CardDialogAddLabel(listId, cardId),
                         ],
                     }),
                 ]),
@@ -138,48 +119,18 @@ export default () => {
                 SectionContainer("fa-align-justify", [
                     Padding(SubTitle("Description"), ["0px", "8px"]),
                     Spacer({ height: "16px" }),
-                    FlatTextArea({
-                        value: card.description,
-                        placeholder: "What's on your mind ?",
-                    }),
+                    CardDialogDescription(),
                 ]),
                 Spacer({ height: "16px" }),
                 SectionContainer("fa-square-check fa-regular", [
                     Padding(SubTitle("Checklist"), ["0px", "8px"]),
                     Column({
-                        children: card.checkItems.map((item) =>
-                            Label({
-                                style: {
-                                    normal: {
-                                        marginTop: "8px",
-                                        padding: ["8px"],
-                                        display: "flex",
-                                        fontSize: "medium",
-                                        backgroundColor: light,
-                                        borderRadius: radius,
-                                    },
-                                },
-                                children: [
-                                    CheckBox({
-                                        style: {
-                                            normal: {
-                                                accentColor: blue,
-                                                height: "1.25em",
-                                                width: "1.25em",
-                                            },
-                                        },
-                                    }),
-                                    Spacer({ width: "8px" }),
-                                    Expanded(
-                                        FlatInput({
-                                            value: item.text,
-                                            placeholder: "To do...",
-                                            size: "medium",
-                                        })
-                                    ),
-                                ],
-                            })
-                        ),
+                        children: [
+                            ...card.checkItems.map((item) =>
+                                CardDialogCheckItem(listId, cardId, item)
+                            ),
+                            CardDialogAddCheckItem(),
+                        ],
                     }),
                 ]),
             ],

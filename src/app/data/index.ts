@@ -42,6 +42,13 @@ const data: Array<Board> = [
         color: "green",
         id: "na3ne3",
         img: "https://images.unsplash.com/photo-1664383042756-d1d0f742ff06?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+        labels: [
+            new Label({ text: "fix", color: "red" }),
+            new Label({ text: "feat", color: "green" }),
+            new Label({ text: "docs", color: "orange" }),
+            new Label({ text: "test", color: "purple" }),
+            new Label({ text: "refactor", color: "blue" }),
+        ],
         lists: [
             new List({
                 id: "to-do",
@@ -50,21 +57,16 @@ const data: Array<Board> = [
                         cDate: Date.now(),
                         description: "Hello My name",
                         id: "My name",
-                        labels: [
-                            new Label({ text: "C#", color: "#aacc00" }),
-                            new Label({ text: "Green", color: "#aaccff" }),
-                        ],
                         title: "Na3ne3",
                         checkItems: [
                             new CheckItem({
-                                doneDate: -1,
-                                text: "somesing is about do habben",
-                                dueDate: -1,
+                                text: "Typescript",
                             }),
                             new CheckItem({
-                                doneDate: -1,
-                                text: "na3neeeeeeeeeeeeeeeeeeee3",
-                                dueDate: -1,
+                                text: "ESlint",
+                            }),
+                            new CheckItem({
+                                text: "Yarn",
                             }),
                         ],
                     }),
@@ -72,7 +74,7 @@ const data: Array<Board> = [
                 cDate: Date.now(),
                 title: "To Do",
             }),
-            new List({ id: "in-progress", cards: [], cDate: Date.now(), title: "In Brogress" }),
+            new List({ id: "in-progress", cards: [], cDate: Date.now(), title: "In Progress" }),
             new List({ id: "today", cards: [], cDate: Date.now(), title: "Today" }),
             new List({ id: "done", cards: [], cDate: Date.now(), title: "Done" }),
         ],

@@ -1,8 +1,8 @@
 import { Button } from "@riadh-adrani/recursive-web/html";
-import { WebEvent } from "@riadh-adrani/recursive-web/lib";
+import { BaseElement, WebEvent } from "@riadh-adrani/recursive-web/lib";
 
 interface ButtonProps {
-    text: string;
+    text: string | BaseElement;
     onClick?: (event: WebEvent) => void;
     color?: string;
     bgColor?: string;

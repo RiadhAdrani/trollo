@@ -11,7 +11,8 @@
     "author": "",
     "license": "MIT",
     "dependencies": {
-        "@riadh-adrani/recursive-web": "^0.7.60",
+        "@riadh-adrani/recursive-web": "^0.7.62",
+        "@riadh-adrani/utility-js": "^0.20.1",
         "uuid": "^9.0.0"
     },
     "devDependencies": {
