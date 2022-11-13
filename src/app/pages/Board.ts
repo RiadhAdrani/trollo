@@ -14,14 +14,7 @@ import { calc, url } from "@riadh-adrani/recursive-web/css";
 import BoardLabelModal from "../components/Board/Board.labelModal";
 
 export default () => {
-  const {
-    isLoading,
-    isNotFound,
-    board: _board,
-    updateBoardTitle,
-    showLabelsModal,
-    setShowLabelModal,
-  } = useBoard();
+  const { isLoading, isNotFound, board: _board, updateBoardTitle, setShowLabelModal } = useBoard();
 
   if (isLoading) {
     return CenteredColumn({ children: SubTitle("Loading...") });

@@ -11,7 +11,9 @@ export default () => {
 
   const [board, setBoard] = setState<Board | string | undefined>(`board-${id}`, undefined);
 
-  const [showLabelsModal, setShowLabelModal] = setState(`board-${id}-show-modal`, true);
+  const [showLabelsModal, setShowLabelModal] = setState(`board-${id}-show-modal`, false);
+
+  const [miniLabel, setMiniLabel] = setState(`board-${id}-mini-labels`, false);
 
   setEffect(`get-board-with-id-${id}`, [], () => {
     if (board !== undefined) return;
@@ -27,6 +29,8 @@ export default () => {
   const isLoading = board === undefined;
 
   const isNotFound = typeof board === "string";
+
+  const toggleMiniLabel = () => setMiniLabel(!miniLabel);
 
   const getList = (id: string) => {
     return (board as Board).lists.find((l) => l.id === id) ?? false;
@@ -174,5 +178,8 @@ export default () => {
 
     showLabelsModal,
     setShowLabelModal,
+
+    miniLabel,
+    toggleMiniLabel,
   };
 };

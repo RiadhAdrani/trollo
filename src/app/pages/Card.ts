@@ -15,6 +15,7 @@ import CardDialogCheckItem from "../components/Card/CardDialog.checkItem";
 import CardDialogAddCheckItem from "../components/Card/CardDialog.addCheckItem";
 import CardDialogAddLabel from "../components/Card/CardDialog.addLabel";
 import LabelChip from "../components/Label/LabelChip";
+import CardDialogMoveToList from "../components/Card/CardDialog.moveToList";
 
 export default () => {
   const { id, card: cardId, list: listId } = getParams();
@@ -47,11 +48,6 @@ export default () => {
   };
 
   return CenteredColumn({
-    onKeyUpGlobal: (e) => {
-      if (e.code === "Escape") {
-        goTo(`/board/${id}`);
-      }
-    },
     style: {
       normal: {
         position: "absolute",
@@ -110,7 +106,12 @@ export default () => {
                 }),
               }),
               Spacer({ height: "12px" }),
-              CardDialogAddLabel(listId, cardId),
+              Row({
+                children: [
+                  CardDialogAddLabel(listId, cardId),
+                  CardDialogMoveToList(cardId, listId),
+                ],
+              }),
             ],
           }),
         ]),

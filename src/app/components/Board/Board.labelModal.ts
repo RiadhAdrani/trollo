@@ -1,13 +1,16 @@
 import { createSelector } from "@riadh-adrani/recursive-web/css";
-import { CenteredRow, ColorPicker, Column, Row, Spacer } from "@riadh-adrani/recursive-web/html";
+import { CenteredRow, Column, Row, Spacer } from "@riadh-adrani/recursive-web/html";
 import { ComponentStyleSheet } from "@riadh-adrani/recursive-web/lib";
-import { generateContrastSafeColor } from "@riadh-adrani/utility-js";
+import { generateContrastSafeColor, isBlank } from "@riadh-adrani/utility-js";
+import { setState } from "../../..";
 import useBoard from "../../hooks/useBoard";
 import Board from "../../models/Board";
+import Label from "../../models/Label";
 import { radius } from "../../style";
 import { StandardButton } from "../Button";
 import Dialog from "../Dialog/Dialog";
 import Icon from "../Icon/Icon";
+import ColorPicker from "../Input/ColorPicker";
 import { FlatInput } from "../Input/Input";
 import { SubTitle } from "../Title";
 
@@ -19,7 +22,25 @@ export default () => {
     updateBoardLabel,
     getLabel,
     updateBoardRemoveLabel,
+    updateBoardAddLabel,
   } = useBoard();
+
+  const [newLabel, setNewLabel] = setState("new-label", { text: "", color: "#ffffff" });
+
+  const updateNewLabelText = (text: string) => {
+    setNewLabel({ ...newLabel, text });
+  };
+
+  const updateNewLabelColor = (color: string) => {
+    setNewLabel({ ...newLabel, color });
+  };
+
+  const addLabel = () => {
+    if (isBlank(newLabel.text)) return;
+
+    updateNewLabelText("");
+    updateBoardAddLabel(new Label({ ...newLabel }));
+  };
 
   const board = _board as Board;
 
@@ -102,7 +123,42 @@ export default () => {
             })
           ),
         }),
-        Spacer({ height: "20px" }),
+        Spacer({ height: "10px" }),
+        CenteredRow({
+          style: {
+            normal: {
+              justifyContent: "space-between",
+              marginBottom: "5px",
+              padding: ["5px", "10px"],
+              borderRadius: radius,
+            },
+            [" input" as keyof ComponentStyleSheet]: createSelector({ fontWeight: "600" }),
+          },
+          children: [
+            FlatInput({
+              value: newLabel.text,
+              placeholder: "Label name...",
+              size: "medium",
+              onInput: (e) => updateNewLabelText(e.currentTarget.value),
+            }),
+            Spacer({ width: "10px" }),
+            CenteredRow({
+              children: [
+                ColorPicker({
+                  value: newLabel.color,
+                  onChange: (e) => updateNewLabelColor(e.currentTarget.value),
+                }),
+                Spacer({ width: "10px" }),
+                StandardButton({
+                  text: Icon("fa-plus"),
+                  flat: true,
+                  onClick: addLabel,
+                }),
+              ],
+            }),
+          ],
+        }),
+        Spacer({ height: "10px" }),
         StandardButton({ text: "Close", onClick: hide }),
       ],
     }),

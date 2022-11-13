@@ -6,7 +6,13 @@ import Icon from "../Icon/Icon";
 import LabelChip from "../Label/LabelChip";
 
 export default (card: Card, list: string, board: string) => {
-  const { getLabel } = useBoard();
+  const { getLabel, miniLabel, toggleMiniLabel } = useBoard();
+
+  const toggleMini = (e: Event) => {
+    e.stopPropagation();
+    e.preventDefault();
+    toggleMiniLabel();
+  };
 
   return Link({
     href: `/board/${board}/${list}/${card.id}`,
@@ -37,7 +43,9 @@ export default (card: Card, list: string, board: string) => {
             renderIf: card.labels.length > 0,
           },
           style: { normal: { flexWrap: "wrap" } },
-          children: card.labels.map((id) => LabelChip(getLabel(id), { mini: true })),
+          children: card.labels.map((id) =>
+            LabelChip(getLabel(id), { mini: miniLabel, onClick: toggleMini })
+          ),
         }),
         Row({
           style: {
