@@ -1,7 +1,10 @@
+import { createSelector } from "@riadh-adrani/recursive-web/css";
 import { Column, Link, Row } from "@riadh-adrani/recursive-web/html";
+import { Selectors } from "@riadh-adrani/recursive-web/lib";
 import useBoard from "../../hooks/useBoard";
 import Card from "../../models/Card";
-import { darkPaper, light, lightVariant, radius } from "../../style";
+import { dark, darkPaper, light, lightVariant, radius } from "../../style";
+import { StandardButton } from "../Button";
 import Icon from "../Icon/Icon";
 import LabelChip from "../Label/LabelChip";
 
@@ -28,6 +31,7 @@ export default (card: Card, list: string, board: string) => {
         position: "relative",
         display: "flex",
         flexDirection: "column",
+        color: dark,
       },
       hover: {
         backgroundColor: lightVariant,
@@ -53,8 +57,24 @@ export default (card: Card, list: string, board: string) => {
               alignItems: "center",
               justifyContent: "space-between",
             },
+            ["> .std-btn" as keyof Selectors]: createSelector({
+              opacity: "0",
+              fontSize: "small",
+            }),
+            [":hover > .std-btn" as keyof Selectors]: createSelector({
+              opacity: "1",
+            }),
           },
-          children: [card.title, Icon("fa-ellipsis")],
+          children: [
+            card.title,
+            StandardButton({
+              text: Icon("fa-trash"),
+              onClick: (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+              },
+            }),
+          ],
         }),
       ],
     }),

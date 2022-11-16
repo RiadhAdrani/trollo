@@ -26,6 +26,10 @@ export default () => {
     get();
   });
 
+  const update = () => {
+    setBoard(board);
+  };
+
   const isLoading = board === undefined;
 
   const isNotFound = typeof board === "string";
@@ -46,18 +50,18 @@ export default () => {
 
   const updateBoardTitle = (title: string) => {
     (board as Board).title = title;
-    setBoard(board);
+    update();
   };
 
   const updateBoardAddLabel = (label: Label) => {
     (board as Board).labels.push(label);
-    setBoard(board);
+    update();
   };
 
   const updateBoardLabel = (id: string, newLabelValue: Label) => {
     let index = (board as Board).labels.findIndex((l) => l.id === id);
     (board as Board).labels[index] = newLabelValue;
-    setBoard(board);
+    update();
   };
 
   const updateBoardRemoveLabel = (id: string) => {
@@ -69,7 +73,7 @@ export default () => {
 
     const labels = (board as Board).labels;
     (board as Board).labels = labels.filter((l) => l.id !== id);
-    setBoard(board);
+    update();
   };
 
   const updateCard = (listId: string, id: string, value: Card) => {
@@ -78,46 +82,46 @@ export default () => {
 
     list.cards[i] = value;
 
-    setBoard(board);
+    update();
   };
 
   const updateCardTitle = (listId: string, id: string, title: string) => {
     (getCard(listId, id) as Card).title = title;
-    setBoard(board);
+    update();
   };
 
   const updateCardAddLabel = (listId: string, id: string, label: Label) => {
     (getCard(listId, id) as Card).labels.push(label.id);
-    setBoard(board);
+    update();
   };
 
   const updateCardRemoveLabel = (listId: string, id: string, label: string) => {
     (getCard(listId, id) as Card).labels = (getCard(listId, id) as Card).labels.filter(
       (item) => item !== label
     );
-    setBoard(board);
+    update();
   };
 
   const updateCardDescription = (listId: string, id: string, description: string) => {
     (getCard(listId, id) as Card).description = description;
-    setBoard(board);
+    update();
   };
 
   const updateCardAddCheckItem = (listId: string, id: string, item: CheckItem) => {
     (getCard(listId, id) as Card).checkItems.push(item);
-    setBoard(board);
+    update();
   };
 
   const updateCardRemoveCheckItem = (listId: string, id: string, item: string) => {
     (getCard(listId, id) as Card).checkItems = (getCard(listId, id) as Card).checkItems.filter(
       (i) => i.id !== item
     );
-    setBoard(board);
+    update();
   };
 
   const updateCardCheckItemText = (listId: string, cardId: string, id: string, text: string) => {
     (getCard(listId, cardId) as Card).checkItems.find((c) => c.id === id).text = text;
-    setBoard(board);
+    update();
   };
 
   const updateCardCheckItemDone = (listId: string, cardId: string, id: string, value: boolean) => {
@@ -125,7 +129,7 @@ export default () => {
 
     item.doneDate = value ? Date.now() : -1;
 
-    setBoard(board);
+    update();
   };
 
   const moveCardToList = (listId: string, cardId: string, newListId: string) => {
@@ -137,7 +141,7 @@ export default () => {
     oldList.cards = oldList.cards.filter((c) => c.id !== cardId);
     newList.cards.push(card);
 
-    setBoard(board);
+    update();
   };
 
   const cardHasLabel = (listId: string, cardId: string, LabelId: string): boolean => {
@@ -153,8 +157,13 @@ export default () => {
 
     if (list) {
       list.cards.push(card);
-      setBoard(board);
+      update();
     }
+  };
+
+  const addList = (list: List) => {
+    (board as Board).lists.push(list);
+    update();
   };
 
   return {
@@ -172,6 +181,7 @@ export default () => {
     getLabel,
 
     addCard,
+    addList,
 
     updateCard,
     updateCardTitle,

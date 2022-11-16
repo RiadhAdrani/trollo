@@ -11,6 +11,7 @@ interface ButtonProps {
 
 export const StandardButton = (props: ButtonProps) => {
   return Button({
+    className: ["std-btn"],
     children: props.text,
     onClick: props.onClick,
     style: {

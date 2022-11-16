@@ -1,4 +1,6 @@
+import { createSelector } from "@riadh-adrani/recursive-web/css";
 import { Column, Div, Row, Spacer } from "@riadh-adrani/recursive-web/html";
+import { Selector, Selectors } from "@riadh-adrani/recursive-web/lib";
 import { isBlank } from "@riadh-adrani/utility-js";
 import { setState } from "../../..";
 import useBoard from "../../hooks/useBoard";
@@ -7,6 +9,7 @@ import List from "../../models/List";
 import { darkAccent, lightAccent, radius } from "../../style";
 import { StandardButton } from "../Button";
 import CardView from "../Card/CardView";
+import Icon from "../Icon/Icon";
 import { FlatInput } from "../Input/Input";
 import { SubTitle } from "../Title";
 import Expanded from "../Utility/Expanded";
@@ -14,15 +17,17 @@ import Expanded from "../Utility/Expanded";
 export default (list: List, board: string) => {
   const { addCard } = useBoard();
 
-  const [title, setTitle] = setState(`list-${list.id}-new-card`, "");
+  const [title, setTitle] = setState(`list-${list.id}-title`, "");
+
+  const [newCardTitle, setNewCardTitle] = setState(`list-${list.id}-new-card`, "");
 
   const onAddClicked = () => {
-    if (isBlank(title)) return;
+    if (isBlank(newCardTitle)) return;
 
-    const card = new Card({ title: title });
+    const card = new Card({ title: newCardTitle });
 
     addCard(card, list.id);
-    setTitle("");
+    setNewCardTitle("");
   };
 
   return Column({
@@ -45,13 +50,29 @@ export default (list: List, board: string) => {
           },
         },
         children: [
-          Div({
+          Row({
             style: {
               normal: {
                 padding: ["8px", "8px"],
               },
+              ["> .std-btn" as keyof Selectors]: createSelector({
+                opacity: "0",
+              }),
+              [":hover > .std-btn" as keyof Selectors]: createSelector({
+                opacity: "1",
+              }),
             },
-            children: SubTitle(list.title),
+            children: [
+              Expanded(
+                FlatInput({
+                  value: list.title,
+                  placeholder: "List title...",
+                  onChange: () => {},
+                  size: "medium",
+                })
+              ),
+              StandardButton({ text: Icon("fa-trash") }),
+            ],
           }),
           Column({
             style: {
@@ -72,10 +93,10 @@ export default (list: List, board: string) => {
             children: [
               Expanded(
                 FlatInput({
-                  value: title,
+                  value: newCardTitle,
                   placeholder: "Add new card",
                   size: "small",
-                  onInput: (e) => setTitle(e.currentTarget.value),
+                  onInput: (e) => setNewCardTitle(e.currentTarget.value),
                 })
               ),
               Spacer({ width: "5px" }),
