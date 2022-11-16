@@ -148,6 +148,15 @@ export default () => {
     return (board as Board).labels.find((l) => l.id === id);
   };
 
+  const addCard = (card: Card, listId: string) => {
+    const list = getList(listId);
+
+    if (list) {
+      list.cards.push(card);
+      setBoard(board);
+    }
+  };
+
   return {
     isLoading,
     isNotFound,
@@ -161,6 +170,8 @@ export default () => {
     getList,
     getCard,
     getLabel,
+
+    addCard,
 
     updateCard,
     updateCardTitle,

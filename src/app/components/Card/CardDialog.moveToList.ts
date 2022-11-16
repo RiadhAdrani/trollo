@@ -1,4 +1,4 @@
-import { CenteredRow, Column, Div, Row, Spacer } from "@riadh-adrani/recursive-web/html";
+import { CenteredRow, Column, Spacer } from "@riadh-adrani/recursive-web/html";
 import { goTo, setState } from "../../..";
 import useBoard from "../../hooks/useBoard";
 import Board from "../../models/Board";
@@ -11,7 +11,7 @@ import { SubTitle } from "../Title";
 export default (cardId: string, listId: string) => {
   const { board, moveCardToList } = useBoard();
 
-  const [show, setShow] = setState("show-card-settings-modal", true);
+  const [show, setShow] = setState("show-card-settings-modal", false);
 
   const hide = () => {
     if (show) setShow(false);
