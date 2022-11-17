@@ -11,6 +11,9 @@ interface FlatInputProps {
   onKeyUp?: (e: WebEvent<KeyboardEvent, HTMLInputElement>) => void;
   size?: string;
   color?: string;
+  type?: "text" | "password" | "number";
+  max?: string;
+  min?: string;
 }
 
 export const FlatInput = (props: FlatInputProps) => {

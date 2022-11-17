@@ -5,6 +5,7 @@ import Card from "../models/Card";
 import CheckItem from "../models/CheckItem";
 import Label from "../models/Label";
 import List from "../models/List";
+import { clamp } from "@riadh-adrani/utility-js";
 
 export default () => {
   const { id } = getParams();
@@ -189,6 +190,25 @@ export default () => {
     }
   };
 
+  const updateListPosition = (listId: string, position: number) => {
+    const list = getList(listId);
+
+    if (list) {
+      const b = board as Board;
+      const o = getListPosition(listId);
+      const i = clamp(0, position, b.lists.length - 1);
+      const aux = b.lists[i];
+
+      b.lists[i] = list;
+      b.lists[o] = aux;
+      update();
+    }
+  };
+
+  const getListPosition = (id: string) => {
+    return (board as Board).lists.indexOf(getList(id) as List);
+  };
+
   return {
     isLoading,
     isNotFound,
@@ -199,11 +219,14 @@ export default () => {
     updateBoardTitle,
     updateBoardLabel,
 
+    getListPosition,
+
     getList,
     getCard,
     getLabel,
 
     updateListTitle,
+    updateListPosition,
 
     addCard,
     addList,

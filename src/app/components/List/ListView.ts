@@ -12,11 +12,14 @@ import CardView from "../Card/CardView";
 import Icon from "../Icon/Icon";
 import { FlatInput } from "../Input/Input";
 import Expanded from "../Utility/Expanded";
+import ListViewOptions from "./ListView.options";
 
 export default (list: List, board: string) => {
   const { addCard, deleteList, updateListTitle } = useBoard();
 
   const [newCardTitle, setNewCardTitle] = setState(`list-${list.id}-new-card`, "");
+
+  const [showOpt, setShowOpts] = setState(`list-${list.id}-opts`, false);
 
   const onAddClicked = () => {
     if (isBlank(newCardTitle)) return;
@@ -26,6 +29,9 @@ export default (list: List, board: string) => {
     addCard(card, list.id);
     setNewCardTitle("");
   };
+
+  const hideOpts = () => setShowOpts(false);
+  const displayOpts = () => setShowOpts(true);
 
   return Column({
     style: {
@@ -71,12 +77,10 @@ export default (list: List, board: string) => {
                   size: "medium",
                 })
               ),
-              Spacer({ width: "7.5px" }),
+              Spacer({ width: "5px" }),
               StandardButton({
-                text: Icon("fa-trash"),
-                onClick: () => {
-                  deleteList(list.id);
-                },
+                text: Icon("fa-gear"),
+                onClick: displayOpts,
               }),
             ],
           }),
@@ -109,6 +113,7 @@ export default (list: List, board: string) => {
               StandardButton({ text: "Add", flat: true, onClick: onAddClicked }),
             ],
           }),
+          ListViewOptions(list.id, showOpt, hideOpts),
         ],
       }),
     ],
