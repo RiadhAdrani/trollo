@@ -166,6 +166,29 @@ export default () => {
     update();
   };
 
+  const deleteCard = (listId: string, id: string) => {
+    const list = getList(listId);
+
+    if (list) {
+      list.cards = list.cards.filter((card) => card.id !== id);
+      update();
+    }
+  };
+
+  const deleteList = (id: string) => {
+    (board as Board).lists = (board as Board).lists.filter((list) => list.id !== id);
+    update();
+  };
+
+  const updateListTitle = (id: string, title: string) => {
+    const list = getList(id);
+
+    if (list) {
+      list.title = title;
+      update();
+    }
+  };
+
   return {
     isLoading,
     isNotFound,
@@ -180,8 +203,13 @@ export default () => {
     getCard,
     getLabel,
 
+    updateListTitle,
+
     addCard,
     addList,
+
+    deleteCard,
+    deleteList,
 
     updateCard,
     updateCardTitle,

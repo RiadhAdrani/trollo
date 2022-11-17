@@ -9,7 +9,7 @@ import Icon from "../Icon/Icon";
 import LabelChip from "../Label/LabelChip";
 
 export default (card: Card, list: string, board: string) => {
-  const { getLabel, miniLabel, toggleMiniLabel } = useBoard();
+  const { getLabel, miniLabel, toggleMiniLabel, deleteCard } = useBoard();
 
   const toggleMini = (e: Event) => {
     e.stopPropagation();
@@ -60,6 +60,7 @@ export default (card: Card, list: string, board: string) => {
             ["> .std-btn" as keyof Selectors]: createSelector({
               opacity: "0",
               fontSize: "small",
+              transitionDuration: "150ms",
             }),
             [":hover > .std-btn" as keyof Selectors]: createSelector({
               opacity: "1",
@@ -72,6 +73,8 @@ export default (card: Card, list: string, board: string) => {
               onClick: (e) => {
                 e.stopPropagation();
                 e.preventDefault();
+
+                deleteCard(list, card.id);
               },
             }),
           ],

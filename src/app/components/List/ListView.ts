@@ -1,6 +1,6 @@
 import { createSelector } from "@riadh-adrani/recursive-web/css";
-import { Column, Div, Row, Spacer } from "@riadh-adrani/recursive-web/html";
-import { Selector, Selectors } from "@riadh-adrani/recursive-web/lib";
+import { Column, Row, Spacer } from "@riadh-adrani/recursive-web/html";
+import { Selectors } from "@riadh-adrani/recursive-web/lib";
 import { isBlank } from "@riadh-adrani/utility-js";
 import { setState } from "../../..";
 import useBoard from "../../hooks/useBoard";
@@ -11,13 +11,10 @@ import { StandardButton } from "../Button";
 import CardView from "../Card/CardView";
 import Icon from "../Icon/Icon";
 import { FlatInput } from "../Input/Input";
-import { SubTitle } from "../Title";
 import Expanded from "../Utility/Expanded";
 
 export default (list: List, board: string) => {
-  const { addCard } = useBoard();
-
-  const [title, setTitle] = setState(`list-${list.id}-title`, "");
+  const { addCard, deleteList, updateListTitle } = useBoard();
 
   const [newCardTitle, setNewCardTitle] = setState(`list-${list.id}-new-card`, "");
 
@@ -57,6 +54,7 @@ export default (list: List, board: string) => {
               },
               ["> .std-btn" as keyof Selectors]: createSelector({
                 opacity: "0",
+                transitionDuration: "150ms",
               }),
               [":hover > .std-btn" as keyof Selectors]: createSelector({
                 opacity: "1",
@@ -67,11 +65,19 @@ export default (list: List, board: string) => {
                 FlatInput({
                   value: list.title,
                   placeholder: "List title...",
-                  onChange: () => {},
+                  onChange: (e) => {
+                    updateListTitle(list.id, e.currentTarget.value);
+                  },
                   size: "medium",
                 })
               ),
-              StandardButton({ text: Icon("fa-trash") }),
+              Spacer({ width: "7.5px" }),
+              StandardButton({
+                text: Icon("fa-trash"),
+                onClick: () => {
+                  deleteList(list.id);
+                },
+              }),
             ],
           }),
           Column({
