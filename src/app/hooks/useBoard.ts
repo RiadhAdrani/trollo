@@ -230,6 +230,11 @@ export default () => {
     }
   };
 
+  const updateBoardImg = (url: string) => {
+    (board as Board).img = url;
+    update();
+  };
+
   return {
     isLoading,
     isNotFound,
@@ -239,6 +244,7 @@ export default () => {
     updateBoardRemoveLabel,
     updateBoardTitle,
     updateBoardLabel,
+    updateBoardImg,
 
     getListPosition,
     getCardPosition,

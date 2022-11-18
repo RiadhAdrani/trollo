@@ -80,7 +80,7 @@ export default () => {
               ),
               Spacer({ width: "10px" }),
               StandardButton({
-                text: Icon("fa-tag"),
+                text: Icon("fa-gear"),
                 color: darkAccent,
                 onClick: () => {
                   setShowLabelModal(true);

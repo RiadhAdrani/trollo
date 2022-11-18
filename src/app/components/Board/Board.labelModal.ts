@@ -12,7 +12,7 @@ import Dialog from "../Dialog/Dialog";
 import Icon from "../Icon/Icon";
 import ColorPicker from "../Input/ColorPicker";
 import { FlatInput } from "../Input/Input";
-import { SubTitle } from "../Title";
+import { SubTitle, TitleBig } from "../Title";
 
 export default () => {
   const {
@@ -23,6 +23,7 @@ export default () => {
     getLabel,
     updateBoardRemoveLabel,
     updateBoardAddLabel,
+    updateBoardImg,
   } = useBoard();
 
   const [newLabel, setNewLabel] = setState("new-label", { text: "", color: "#ffffff" });
@@ -74,7 +75,7 @@ export default () => {
             },
           },
           children: [
-            SubTitle("Labels"),
+            TitleBig("Settings"),
             StandardButton({
               text: Icon("fa-xmark"),
               onClick: hide,
@@ -82,6 +83,8 @@ export default () => {
           ],
         }),
         Spacer({ height: "20px" }),
+        SubTitle("Labels"),
+        Spacer({ height: "10px" }),
         Column({
           children: board.labels.map((label) =>
             CenteredRow({
@@ -158,7 +161,16 @@ export default () => {
             }),
           ],
         }),
+        Spacer({ height: "20px" }),
+        SubTitle("Background"),
         Spacer({ height: "10px" }),
+        FlatInput({
+          placeholder: "image",
+          value: board.img,
+          size: "medium",
+          onChange: (e) => updateBoardImg(e.currentTarget.value),
+        }),
+        Spacer({ height: "20px" }),
         StandardButton({ text: "Close", onClick: hide }),
       ],
     }),
