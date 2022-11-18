@@ -4,7 +4,7 @@ import List from "../../models/List";
 import { StandardButton } from "../Button";
 import Dialog from "../Dialog/Dialog";
 import Icon from "../Icon/Icon";
-import { Title, TitleSmall } from "../Title";
+import { TitleSmall } from "../Title";
 import Expanded from "../Utility/Expanded";
 
 export default (id: string, show: boolean, hide: () => void) => {

@@ -205,8 +205,29 @@ export default () => {
     }
   };
 
-  const getListPosition = (id: string) => {
+  const getListPosition = (id: string): number => {
     return (board as Board).lists.indexOf(getList(id) as List);
+  };
+
+  const getCardPosition = (listId: string, id: string): number => {
+    return ((board as Board).lists.find((i) => i.id == listId) as List).cards.indexOf(
+      getCard(listId, id) as Card
+    );
+  };
+
+  const updateCardPosition = (listId: string, id: string, position: number) => {
+    const list = getList(listId);
+
+    if (list) {
+      const b = board as Board;
+      const o = getCardPosition(listId, id);
+      const i = clamp(0, position, list.cards.length - 1);
+      const aux = list.cards[i];
+
+      list.cards[i] = getCard(listId, id) as Card;
+      list.cards[o] = aux;
+      update();
+    }
   };
 
   return {
@@ -220,6 +241,7 @@ export default () => {
     updateBoardLabel,
 
     getListPosition,
+    getCardPosition,
 
     getList,
     getCard,
@@ -235,6 +257,7 @@ export default () => {
     deleteList,
 
     updateCard,
+    updateCardPosition,
     updateCardTitle,
     updateCardDescription,
     updateCardAddLabel,

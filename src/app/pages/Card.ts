@@ -16,6 +16,7 @@ import CardDialogAddCheckItem from "../components/Card/CardDialog.addCheckItem";
 import CardDialogAddLabel from "../components/Card/CardDialog.addLabel";
 import LabelChip from "../components/Label/LabelChip";
 import CardDialogMoveToList from "../components/Card/CardDialog.moveToList";
+import CardDialogChangePosition from "../components/Card/CardDialog.changePosition";
 
 export default () => {
   const { id, card: cardId, list: listId } = getParams();
@@ -109,7 +110,10 @@ export default () => {
               Row({
                 children: [
                   CardDialogAddLabel(listId, cardId),
+                  Spacer({ width: "10px" }),
                   CardDialogMoveToList(cardId, listId),
+                  Spacer({ width: "16px" }),
+                  CardDialogChangePosition(listId, cardId),
                 ],
               }),
             ],
