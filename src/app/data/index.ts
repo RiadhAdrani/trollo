@@ -101,3 +101,9 @@ export const getBoard = async (id: string): Promise<Board | string> => {
     });
   }
 };
+
+export const addNewBoard = async (board: Board): Promise<void> => {
+  data.push(board);
+
+  return;
+};
